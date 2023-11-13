@@ -45,13 +45,15 @@ const OutputView = {
     );
   },
   // <할인 후 예상 결제 금액> 출력
-  printDiscountAmount() {
-    Console.print(`\n${OUPUT_MESSAGES.DISCOUNT_PRICE}\n`);
+  printDiscountAmount(price) {
+    Console.print(
+      `\n${OUPUT_MESSAGES.DISCOUNT_PRICE}\n${price.toLocaleString()}원`,
+    );
   },
 
   // <12월 이벤트 배지> 출력
-  printEventBadge() {
-    Console.print(`\n${OUPUT_MESSAGES.EVENT_BADGE}\n`);
+  printEventBadge(badge) {
+    Console.print(`\n${OUPUT_MESSAGES.EVENT_BADGE}\n${badge}`);
   },
 };
 
