@@ -2,11 +2,14 @@ import { Console } from '@woowacourse/mission-utils';
 import { OUPUT_MESSAGES, EVENT_NAME } from '../utils/Constants.js';
 
 const OutputView = {
-  // START
   printIntro() {
-    Console.print('안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.');
+    Console.print(`안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.`);
   },
-  // <주문 메뉴> 출력
+  printPreview(date) {
+    Console.print(
+      `12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`,
+    );
+  },
   printMenu(menus) {
     Console.print(OUPUT_MESSAGES.ORDER_MENU);
     menus.forEach((menu) => {
@@ -14,19 +17,14 @@ const OutputView = {
     });
   },
 
-  // <할인 전 총주문 금액> 출력
   printOrderPrice(price) {
     Console.print(
       `\n${OUPUT_MESSAGES.ORDER_PRICE}\n${price.toLocaleString()}원`,
     );
   },
-
-  // <증정 메뉴> 출력
   printGift(gift) {
     Console.print(`\n${OUPUT_MESSAGES.GIFT_MENU}\n${gift[0]}`);
   },
-
-  // <혜택 내역> 출력
   printBenefit(discountList) {
     Console.print(`\n${OUPUT_MESSAGES.BENEFITS_DETAILS}`);
     discountList.forEach((e) => {
@@ -44,14 +42,11 @@ const OutputView = {
       `\n${OUPUT_MESSAGES.TOTAL_BENEFIT_AMOUNT}\n${sum.toLocaleString()}원`,
     );
   },
-  // <할인 후 예상 결제 금액> 출력
   printDiscountAmount(price) {
     Console.print(
       `\n${OUPUT_MESSAGES.DISCOUNT_PRICE}\n${price.toLocaleString()}원`,
     );
   },
-
-  // <12월 이벤트 배지> 출력
   printEventBadge(badge) {
     Console.print(`\n${OUPUT_MESSAGES.EVENT_BADGE}\n${badge}`);
   },

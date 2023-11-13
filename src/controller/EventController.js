@@ -1,10 +1,7 @@
-import { Console } from '@woowacourse/mission-utils';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import Menu from '../model/Menu.js';
 import { ALL_MENU_LIST, EVENT_BADGE } from '../utils/Constants.js';
 import Discount from '../model/Discount.js';
-import Validation from '../validation/Validation.js';
 
 class EventController {
   constructor() {
@@ -17,21 +14,25 @@ class EventController {
     this.ouputView.printIntro();
     const getDate = await this.inputView.readDate();
     const orderMenu = await this.inputView.readMenu();
-    this.ouputView.printMenu(orderMenu); // 주문 메뉴 출력
-    Console.print(
-      `12월 ${getDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`,
-    );
+    this.ouputView.printMenu(orderMenu);
+    this.ouputView.printPreview(getDate);
+
     const totalPrice = this.calcTotalPrice(orderMenu);
     this.ouputView.printOrderPrice(totalPrice);
+
     const discount = new Discount();
     const giftMenu = discount.giftEvent(totalPrice);
     this.ouputView.printGift(giftMenu);
+
     const allDiscount = discount.checkDiscountList(getDate, orderMenu);
     this.ouputView.printBenefit(allDiscount);
+
     const sumDiscount = discount.calcSumDiscount(allDiscount);
     this.ouputView.printDiscountSumAmount(sumDiscount);
+
     const finalPrice = totalPrice - sumDiscount;
     this.ouputView.printDiscountAmount(finalPrice);
+
     const badge = this.getBadge(allDiscount);
     this.ouputView.printEventBadge(badge[badge.length - 1]);
   }
