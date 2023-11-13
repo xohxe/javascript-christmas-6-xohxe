@@ -52,8 +52,8 @@ const OUPUT_MESSAGES = Object.freeze({
 
 const ERROR_MESSAGES = Object.freeze({
   INPUT_ERROR: '[ERROR] 잘못된 값이 입력되었습니다.',
-  NO_RANGE: '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.',
-  NO_MENU: '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.',
+  NO_DATE: '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.',
+  NO_ORDER: '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.',
   NO_VALUE: '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.',
 });
 export {
