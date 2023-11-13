@@ -17,8 +17,7 @@ const InputView = {
   async readMenu() {
     try {
       const menuInput = await Console.readLineAsync(INPUT_MESSAGES.ORDER_MENU);
-      // , 기준으로 나눠 배열로 저장
-      const menu = Utils.splitComma(menuInput);  
+      const menu = Utils.convertMenu(menuInput);
       Validation.validateMenu(menu);
       return menu;
     } catch (error) {

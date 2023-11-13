@@ -1,12 +1,10 @@
+import Menu from '../model/Menu.js';
 class Utils {
-  // 입력값 , 기준으로 나눔
-  static splitComma(str) {
-    return (str || '').split(',');
-  }
-
-  // 입력값 - 기준으로 나눔
-  static splitHyphen(str) {
-    return str.split('-');
+  static convertMenu(menus) {
+    const splitedMenu = (menus || '').split(',');
+    return splitedMenu.map((order) => {
+      return new Menu(order.split('-')[0], order.split('-')[1]);
+    });
   }
 }
 
