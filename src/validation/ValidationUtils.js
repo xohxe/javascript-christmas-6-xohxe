@@ -6,14 +6,13 @@ import {
 } from '../utils/Constants.js';
 
 class ValidationUtils {
-  // 날짜
-  // 입력값이 비어있지 않은지 검증
+  // 날짜 입력값이 비어있지 않은지 검증
   static isDateEmptyInput(input) {
     if (!input) {
       throw new Error(ERROR_MESSAGES.NO_DATE);
     }
   }
-  // 입력값이 1 이상 31 이하의 숫자인지 검증
+  // 날짜 입력값이 1 이상 31 이하의 숫자인지 검증
   static isDateOnRange(input) {
     if (input < EVENT_RULE.RANGE.MIN || input > EVENT_RULE.RANGE.MAX) {
       throw new Error(ERROR_MESSAGES.NO_DATE);
@@ -25,21 +24,20 @@ class ValidationUtils {
       throw new Error(ERROR_MESSAGES.NO_DATE);
     }
   }
-  // 입력값이 양의 정수가 아닌지 검증
+  // 날짜 입력값이 양의 정수가 아닌지 검증
   static isDateNotPositiveInteger(input) {
     if (input % 1 !== 0 || input < 1) {
       throw new Error(ERROR_MESSAGES.NO_DATE);
     }
   }
 
-  // 메뉴 검증
   // 메뉴 수량의 입력값이 숫자, 양의 정수인지 검증
   static isMenuNumber(input) {
     if (typeof input === 'number' || input % 1 !== 0 || input < 1) {
       throw new Error(ERROR_MESSAGES.NO_VALUE);
     }
   }
-  // 입력값의 개수가 20개를 넘는 것이 아닌지 검증
+  // 주문한 수량이 20개를 넘는 것이 아닌지 검증
   static isMenuLength(input) {
     if (input > EVENT_RULE.LENGTH) {
       throw new Error(ERROR_MESSAGES.NO_VALUE);
@@ -62,7 +60,7 @@ class ValidationUtils {
     }
   }
 
-  // 음료만 시킨지 검증
+  // 음료만 주문한 것은 아닌지 검증
   static isBeverage(arr) {
     const allBeverageList = Object.keys(MENU_LIST.MENU_BEVERAGE);
     if (arr.every((i) => allBeverageList.includes(i))) {
