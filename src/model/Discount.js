@@ -1,7 +1,10 @@
+import EventController from '../controller/EventController';
 import { DAYS, MENU_LIST } from '../utils/Constants';
 
 class Discount {
-  constructor() {}
+  constructor() {
+    this.check10000 = true
+  }
 
   checkDiscountList(date, menuList) {
     let discountList = [];
@@ -9,9 +12,10 @@ class Discount {
     discountList.push(this.weekdayDiscount(date, menuList));
     discountList.push(this.weekendDiscount(date, menuList));
     discountList.push(this.specialDiscount(date));
-    discountList.push(this.giftEvent[1]);
+    discountList.push(this.giftEvent[1]);  
     return discountList;
-  }
+  } 
+  
   // 총 혜택 금액
   calcSumDiscount(discountList) {
     let allDiscount = discountList.filter((element) => element !== undefined);
@@ -24,7 +28,7 @@ class Discount {
   // 디데이 할인
   dDayDiscount(date) {
     let discount = 0;
-    if (date < 26) {
+    if (date < 26 && this.check10000) {
       discount = 1000 + date * 100;
     }
     return discount;
@@ -36,7 +40,7 @@ class Discount {
     const validWeekday = menuList.map((menu) => {
       if (
         WEEKDAYS.includes(date) &&
-        Object.keys(MENU_LIST.MENU_DESSERT).includes(menu.name)
+        Object.keys(MENU_LIST.MENU_DESSERT).includes(menu.name) && this.check10000
       ) {
         return menu.amount;
       }
@@ -53,7 +57,7 @@ class Discount {
     const validWeekend = menuList.map((menu) => {
       if (
         WEEKENDS.includes(date) &&
-        Object.keys(MENU_LIST.MENU_MAIN).includes(menu.name)
+        Object.keys(MENU_LIST.MENU_MAIN).includes(menu.name) && this.check10000
       ) {
         return menu.amount;
       }
@@ -68,7 +72,7 @@ class Discount {
   // 특별 할인
   specialDiscount(date) {
     const STARDAYS = DAYS.makeStarDays();
-    if (STARDAYS.includes(date)) {
+    if (STARDAYS.includes(date) && this.check10000) {
       return 1000;
     }
   }

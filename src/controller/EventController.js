@@ -1,12 +1,13 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import { ALL_MENU_LIST, EVENT_BADGE } from '../utils/Constants.js';
-import Discount from '../model/Discount.js';
+import { ALL_MENU_LIST, ERROR_MESSAGES, EVENT_BADGE } from '../utils/Constants.js';
+import Discount from '../model/Discount.js';  
 
 class EventController {
   constructor() {
     this.inputView = InputView;
     this.ouputView = OutputView;
+    this.discount = new Discount();
   }
 
   // 주문하기
@@ -20,14 +21,13 @@ class EventController {
     const totalPrice = this.calcTotalPrice(orderMenu);
     this.ouputView.printOrderPrice(totalPrice);
 
-    const discount = new Discount();
-    const giftMenu = discount.giftEvent(totalPrice);
+    const giftMenu = this.discount.giftEvent(totalPrice);
     this.ouputView.printGift(giftMenu);
-
-    const allDiscount = discount.checkDiscountList(getDate, orderMenu);
+ 
+    const allDiscount = this.discount.checkDiscountList(getDate, orderMenu);
     this.ouputView.printBenefit(allDiscount);
 
-    const sumDiscount = discount.calcSumDiscount(allDiscount);
+    const sumDiscount = this.discount.calcSumDiscount(allDiscount);
     this.ouputView.printDiscountSumAmount(sumDiscount);
 
     const finalPrice = totalPrice - sumDiscount;
@@ -44,9 +44,14 @@ class EventController {
     );
     const result = orderMenuPrice.reduce((acc, cur) => {
       return acc + cur;
-    }, 0);
+    }, 0); 
+    if(result < 10000){
+      this.discount.check10000 = false
+    }
     return result;
   }
+
+ 
   getBadge(discount) {
     let badge = ['없음'];
     for (let i = 0; i < 3; i++) {
