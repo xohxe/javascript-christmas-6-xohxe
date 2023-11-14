@@ -65,6 +65,41 @@ describe("기능 테스트", () => {
     // then
     const expected = ["<혜택 내역>" + LINE_SEPARATOR + "없음"];
 
+
+    expectLogContains(getOutput(logSpy), expected);
+  });
+
+  test("혜택 내역 타이틀과 없음 출력", async () => {
+    // 합이 10000원 이하인경우 혜택 없음 출력
+    // given
+    const logSpy = getLogSpy();
+    mockQuestions(["24", "양송이수프-1,제로콜라-1"]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    const expected = ["<혜택 내역>" + LINE_SEPARATOR + "없음"];
+    
+
+    expectLogContains(getOutput(logSpy), expected);
+  });
+  test("혜택 내역 타이틀과 없음 출력", async () => {
+    // 합이 10000원 이하인경우 혜택 없음 출력
+    // 평일 디저트할인
+    // given
+    const logSpy = getLogSpy();
+    mockQuestions(["18", "아이스크림-1,제로콜라-1"]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    const expected = ["<혜택 내역>" + LINE_SEPARATOR + "없음"];
+    
+
     expectLogContains(getOutput(logSpy), expected);
   });
 });

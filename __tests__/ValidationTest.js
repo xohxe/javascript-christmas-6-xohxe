@@ -29,5 +29,11 @@ describe('메뉴 입력 에러 메시지 체크', () => {
       const menu = Utils.convertMenu('1-시저샐러드,레드와인-1');
       Validation.validateMenu(menu);
     }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+    expect(() => {
+      const menu = Utils.convertMenu('티본스테이크-8,바비큐립-5,초코케이크-9,제로콜라-1,해산물파스타-2,레드와인-1');
+      //console.log(menu)
+      Validation.validateMenu(menu);
+
+    }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
   });
 });
