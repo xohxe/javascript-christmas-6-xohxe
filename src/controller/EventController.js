@@ -11,7 +11,6 @@ class EventController {
   }
   // 주문하기
   async orderMenu() {
-    this.ouputView.printIntro();
     const getDate = await this.inputView.readDate();
     const orderMenu = await this.inputView.readMenu();
     this.ouputView.printMenu(orderMenu);
@@ -72,6 +71,7 @@ class EventController {
   }
   // 전체 로직 실행
   async playEvent() {
+    this.ouputView.printIntro();
     await this.orderMenu();
   }
 }
