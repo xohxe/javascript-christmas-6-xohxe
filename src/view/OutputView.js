@@ -27,7 +27,6 @@ const OutputView = {
   },
   printBenefit(discountList) {
     Console.print(`\n${OUPUT_MESSAGES.BENEFITS_DETAILS}`); 
-    
     let newArr = discountList.filter((e)=> e !== undefined && e !== 0)
     if(newArr.length === 0){
       Console.print('없음');
@@ -42,6 +41,9 @@ const OutputView = {
     }   
   },
   printDiscountSumAmount(sum) {
+    if(sum === -0){
+      sum = 0
+    }
     Console.print(
       `\n${OUPUT_MESSAGES.TOTAL_BENEFIT_AMOUNT}\n${sum.toLocaleString()}원`,
     );

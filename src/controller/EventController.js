@@ -28,8 +28,8 @@ class EventController {
     this.ouputView.printBenefit(allDiscount);
 
     const sumDiscount = this.discount.calcSumDiscount(allDiscount);
-    this.ouputView.printDiscountSumAmount(sumDiscount);
-
+    this.ouputView.printDiscountSumAmount(-sumDiscount);
+   
     const finalPrice = this.getFinalPrice(totalPrice,sumDiscount,giftMenu)
     this.ouputView.printDiscountAmount(finalPrice);
 
