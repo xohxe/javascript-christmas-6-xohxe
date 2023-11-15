@@ -80,7 +80,7 @@ class Discount {
   giftEvent(price) {
     let gift = ['없음', 0];
     if (price >= 120000) {
-      gift = ['샴페인', 25000];
+      gift = ['샴페인 1개', 25000];
     } 
     return gift;
   }

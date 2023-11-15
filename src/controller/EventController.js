@@ -23,17 +23,17 @@ class EventController {
 
     const giftMenu = this.discount.giftEvent(totalPrice);
     this.ouputView.printGift(giftMenu);
- 
-    const allDiscount = this.discount.checkDiscountList(Number(getDate), orderMenu,Number(totalPrice));
+   
+    const allDiscount = this.discount.checkDiscountList(Number(getDate), orderMenu, Number(totalPrice));
     this.ouputView.printBenefit(allDiscount);
 
     const sumDiscount = this.discount.calcSumDiscount(allDiscount);
     this.ouputView.printDiscountSumAmount(sumDiscount);
 
-    const finalPrice = totalPrice - sumDiscount;
+    const finalPrice = this.getFinalPrice(totalPrice,sumDiscount,giftMenu)
     this.ouputView.printDiscountAmount(finalPrice);
 
-    const badge = this.getBadge(allDiscount);
+    const badge = this.getBadge(sumDiscount);
     this.ouputView.printEventBadge(badge[badge.length - 1]);
   }
 
@@ -51,6 +51,14 @@ class EventController {
     return result;
   }
 
+  // 할인 후 예상 결제 금액
+  getFinalPrice(totalPrice, sumDiscount, giftMenu){
+    let result = totalPrice - sumDiscount
+    if(giftMenu[1] !== 0){
+      result += 25000
+    }
+    return result
+  }
  
   getBadge(discount) {
     let badge = ['없음'];
