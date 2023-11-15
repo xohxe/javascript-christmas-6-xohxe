@@ -26,16 +26,20 @@ const OutputView = {
     Console.print(`\n${OUPUT_MESSAGES.GIFT_MENU}\n${gift[0]}`);
   },
   printBenefit(discountList) {
-    Console.print(`\n${OUPUT_MESSAGES.BENEFITS_DETAILS}`);
-    discountList.forEach((e) => {
-      if (e !== 0 && e !== undefined) {
-        Console.print(
-          `${EVENT_NAME[discountList.indexOf(e)]} -${e.toLocaleString()}원`,
-        );
-      } else {
-        Console.print('없음');
-      }
-    });
+    Console.print(`\n${OUPUT_MESSAGES.BENEFITS_DETAILS}`); 
+    
+    let newArr = discountList.filter((e)=> e !== undefined && e !== 0)
+    if(newArr.length === 0){
+      Console.print('없음');
+    }else{
+      discountList.forEach((e) => {
+        if (e !== 0 && e !== undefined) {
+          Console.print(
+            `${EVENT_NAME[discountList.indexOf(e)]} -${e.toLocaleString()}원`,
+          );
+        }   
+      });
+    }   
   },
   printDiscountSumAmount(sum) {
     Console.print(
