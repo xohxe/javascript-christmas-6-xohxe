@@ -1,7 +1,7 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
-import { ALL_MENU_LIST, ERROR_MESSAGES, EVENT_BADGE } from '../utils/Constants.js';
-import Discount from '../model/Discount.js';   
+import { ALL_MENU_LIST, EVENT_BADGE } from '../utils/Constants.js';
+import Discount from '../model/Discount.js';
 
 class EventController {
   constructor() {
@@ -9,7 +9,6 @@ class EventController {
     this.ouputView = OutputView;
     this.discount = new Discount();
   }
-
   // 주문하기
   async orderMenu() {
     this.ouputView.printIntro();
@@ -21,45 +20,47 @@ class EventController {
     const totalPrice = this.calcTotalPrice(orderMenu);
     this.ouputView.printOrderPrice(totalPrice);
 
-    const giftMenu = this.discount.giftEvent(totalPrice);
-    this.ouputView.printGift(giftMenu);
-   
-    const allDiscount = this.discount.checkDiscountList(Number(getDate), orderMenu, Number(totalPrice));
-    this.ouputView.printBenefit(allDiscount);
+    const { giftMenu, allDiscount, sumDiscount } = await this.processDiscounts(getDate,orderMenu,totalPrice);
 
-    const sumDiscount = this.discount.calcSumDiscount(allDiscount);
-    this.ouputView.printDiscountSumAmount(-sumDiscount);
-   
-    const finalPrice = this.getFinalPrice(totalPrice,sumDiscount,giftMenu)
+    const finalPrice = this.getFinalPrice(totalPrice, sumDiscount, giftMenu);
     this.ouputView.printDiscountAmount(finalPrice);
 
     const badge = this.getBadge(sumDiscount);
     this.ouputView.printEventBadge(badge[badge.length - 1]);
   }
 
+  async processDiscounts(getDate, orderMenu, totalPrice) {
+    const giftMenu = this.discount.giftEvent(totalPrice);
+    this.ouputView.printGift(giftMenu);
+
+    const allDiscount = await this.discount.checkDiscountList(Number(getDate),orderMenu, Number(totalPrice));
+    this.ouputView.printBenefit(allDiscount);
+
+    const sumDiscount = this.discount.calcSumDiscount(allDiscount);
+    this.ouputView.printDiscountSumAmount(-sumDiscount);
+
+    return { giftMenu, allDiscount, sumDiscount };
+  }
   // 할인 전 전체금액 계산
   calcTotalPrice(menuList) {
     const orderMenuPrice = menuList.map(
-      (menu) => ALL_MENU_LIST[menu.name] * menu.amount,
+      (menu) => ALL_MENU_LIST[menu.name] * menu.amount
     );
-    const result = orderMenuPrice.reduce((acc, cur) => {
-      return acc + cur;
-    }, 0); 
-    if(result < 10000){
-      this.discount.check10000 = false
+    const result = orderMenuPrice.reduce((acc, cur) => acc + cur, 0);
+    if (result < 10000) {
+      this.discount.check10000 = false;
     }
     return result;
   }
-
   // 할인 후 예상 결제 금액
-  getFinalPrice(totalPrice, sumDiscount, giftMenu){
-    let result = totalPrice - sumDiscount
-    if(giftMenu[1] !== 0){
-      result += 25000
+  getFinalPrice(totalPrice, sumDiscount, giftMenu) {
+    let result = totalPrice - sumDiscount;
+    if (giftMenu[1] !== 0) {
+      result += 25000;
     }
-    return result
+    return result;
   }
- 
+  // 12월 이벤트 뱃지
   getBadge(discount) {
     let badge = ['없음'];
     for (let i = 0; i < 3; i++) {
