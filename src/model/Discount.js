@@ -1,18 +1,17 @@
-import EventController from '../controller/EventController';
-import { DAYS, MENU_LIST } from '../utils/Constants';
+import { DAYS, MENU_LIST } from '../utils/Constants.js';
 
 class Discount {
   constructor() {
     this.check10000 = true
   }
 
-  checkDiscountList(date, menuList) {
+  checkDiscountList(date, menuList,price) {
     let discountList = [];
     discountList.push(this.dDayDiscount(date));
     discountList.push(this.weekdayDiscount(date, menuList));
     discountList.push(this.weekendDiscount(date, menuList));
     discountList.push(this.specialDiscount(date));
-    discountList.push(this.giftEvent[1]);  
+    discountList.push(this.giftEvent(price)[1]);    
     return discountList;
   } 
   
@@ -71,7 +70,8 @@ class Discount {
 
   // 특별 할인
   specialDiscount(date) {
-    const STARDAYS = DAYS.makeStarDays();
+    const STARDAYS = DAYS.makeStarDays(); 
+
     if (STARDAYS.includes(date) && this.check10000) {
       return 1000;
     }
@@ -81,7 +81,7 @@ class Discount {
     let gift = ['없음', 0];
     if (price >= 120000) {
       gift = ['샴페인', 25000];
-    }
+    } 
     return gift;
   }
 }

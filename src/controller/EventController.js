@@ -1,7 +1,7 @@
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 import { ALL_MENU_LIST, ERROR_MESSAGES, EVENT_BADGE } from '../utils/Constants.js';
-import Discount from '../model/Discount.js';  
+import Discount from '../model/Discount.js';   
 
 class EventController {
   constructor() {
@@ -24,7 +24,7 @@ class EventController {
     const giftMenu = this.discount.giftEvent(totalPrice);
     this.ouputView.printGift(giftMenu);
  
-    const allDiscount = this.discount.checkDiscountList(getDate, orderMenu);
+    const allDiscount = this.discount.checkDiscountList(Number(getDate), orderMenu,Number(totalPrice));
     this.ouputView.printBenefit(allDiscount);
 
     const sumDiscount = this.discount.calcSumDiscount(allDiscount);
