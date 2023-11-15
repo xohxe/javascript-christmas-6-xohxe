@@ -33,17 +33,19 @@ const ALL_MENU_LIST = Object.assign(
 );
 
 const DAYS = {
+  // 일, 월, 화, 수, 목
   makeWeekdays() {
-    let WEEKDAY = [4, 5, 6, 7];
+    let WEEKDAY = [3, 4, 5, 6, 7];
     let WEEKDAYS = [];
     for (let i = 0; i < 4; i++) {
       WEEKDAY.map((e) => {
         WEEKDAYS.push(e + 7 * i);
       });
     }
+    WEEKDAYS.push(31)
     return WEEKDAYS;
   },
-
+  // 금, 토
   makeWeekends() {
     let WEEKEND = [1, 2];
     let WEEKENDS = [];
@@ -54,7 +56,7 @@ const DAYS = {
     }
     return WEEKENDS;
   },
-
+  // 일요일마다 & 25일
   makeStarDays() {
     let STARDAY = [3];
     let STARDAYS = [];
