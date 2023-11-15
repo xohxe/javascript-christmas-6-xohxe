@@ -28,7 +28,7 @@ class Discount {
   dDayDiscount(date) {
     let discount = 0;
     if (date < 26 && this.check10000) {
-      discount = 1000 + date * 100;
+      discount = 1000 + (date - 1) * 100;
     }
     return discount;
   }
@@ -70,8 +70,8 @@ class Discount {
 
   // 특별 할인
   specialDiscount(date) {
-    const STARDAYS = DAYS.makeStarDays(); 
-
+    const STARDAYS = DAYS.makeStarDays();
+    
     if (STARDAYS.includes(date) && this.check10000) {
       return 1000;
     }
